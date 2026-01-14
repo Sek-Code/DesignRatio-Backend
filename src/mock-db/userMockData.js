@@ -1,13 +1,16 @@
-export const members = [
+export const users = [
     {
+        id: 1,
         img: "/userProflie/img_002.png",
         userName: "John",
         userLast: "Doe",
         email: "john.doe@example.com",
         phoneNumber: "0812345678",
         address: "123 Sukhumvit Road, Khlong Tan, Bangkok, Thailand",
+       
     },
     {
+        id: 2,
         img: "/userProflie/img_003.png",
         userName: "Jane",
         userLast: "Smith",
@@ -16,6 +19,7 @@ export const members = [
         address: "45 Phahonyothin Road, Chatuchak, Bangkok, Thailand",
     },
     {
+        id: 3,
         img: "/userProflie/img_004.png",
         userName: "Michael",
         userLast: "Brown",
@@ -24,6 +28,7 @@ export const members = [
         address: "78 Suthep, Mueang Chiang Mai, Chiang Mai, Thailand",
     },
     {
+        id: 4,
         img: "/userProflie/img_005.png",
         userName: "Emily",
         userLast: "Johnson",
@@ -32,6 +37,7 @@ export const members = [
         address: "99 Mittraphap Road, Mueang Khon Kaen, Thailand",
     },
     {
+        id: 5,
         img: "/userProflie/img_006.png",
         userName: "David",
         userLast: "Wilson",
@@ -40,6 +46,7 @@ export const members = [
         address: "12/3 Nimmanhaemin Road, Chiang Mai, Thailand",
     },
     {
+        id: 6,
         img: "/userProflie/img_007.png",
         userName: "Sophia",
         userLast: "Taylor",
@@ -48,6 +55,7 @@ export const members = [
         address: "221 Rama 9 Road, Huai Khwang, Bangkok, Thailand",
     },
     {
+        id: 7,
         img: "/userProflie/img_008.png",
         userName: "Daniel",
         userLast: "Anderson",
@@ -56,6 +64,7 @@ export const members = [
         address: "56 Srinakarin Road, Bang Na, Bangkok, Thailand",
     },
     {
+        id:8,
         img: "/userProflie/img_009.png",
         userName: "Olivia",
         userLast: "Martinez",
@@ -64,6 +73,7 @@ export const members = [
         address: "18 Sukhumvit Road, Si Racha, Chonburi, Thailand",
     },
     {
+        id: 9,
         img: "/userProflie/img_010.png",
         userName: "James",
         userLast: "Lee",
@@ -72,6 +82,7 @@ export const members = [
         address: "90 Pracha Uthit Road, Thung Khru, Bangkok, Thailand",
     },
     {
+        id: 10,
         img: "/userProflie/img_011.png",
         userName: "Emma",
         userLast: "Clark",
