@@ -1,5 +1,5 @@
-import { users } from "../../mock-db/userMockData";
-import { TeaUser } from "./users.model";
+import { users } from "../../mock-db/userMockData.js";
+// import { TeaUser } from "./users.model.js";
 
 export const getMockUser = (req, res) => {
   res.status(200).json(users);
