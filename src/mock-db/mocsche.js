@@ -53,10 +53,12 @@ const productSchema = new mongoose.Schema(
       default: "ready",
     },
   },
-  {
+  {   
     timestamps: true,
   }
 );
+
+
 
 const cartSchema = new mongoose.Schema(
   {
@@ -83,11 +85,11 @@ const cartSchema = new mongoose.Schema(
         },
 
         // จำนวน
-        quantity: {
+        quantity: {                
           type: Number,
           required: true,
           default: 1,
-          min: 1,
+          min: 1, 
         },
 
         // ตัวเลือกจากหน้า Blending
