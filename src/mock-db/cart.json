@@ -1,0 +1,48 @@
+{
+  "_id": "cart_001",
+  "user_id": "user_001",
+  "items": [
+    {
+      "_id": "item_001",
+      "product_id": "product_001",
+      "type": "ready",
+      "name": "Assam Tea",
+      "size": "L",
+      "price": 100,
+      "quantity": 2,
+      "totalPrice": 200
+    },
+    {
+      "_id": "item_002",
+      "product_id": "product_002",
+      "type": "custom",
+      "name": "Custom Tea",
+      "size": "L",
+      "bases": [
+        {
+          "name": "Green Tea",
+          "price": 0
+        }
+      ],
+      "ingredients": [
+        {
+          "component_id": "qeqwe",
+          "name": "Cinnamon",
+          "category": "Spices",
+          "price": 30
+        },
+        {
+          "component_id": "qertee",
+          "name": "Chamomile",
+          "category": "Herbs",
+          "price": 10
+        }
+      ],
+      "quantity": 1,
+      "totalPrice": 40
+    }
+  ],
+  "grandTotal": 240,
+  "created_at": "2026-01-15T02:10:00.000Z",
+  "updated_at": "2026-01-15T02:10:00.000Z"
+}
