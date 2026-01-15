@@ -1,8 +1,8 @@
 [
   {
     "_id": "prod001",
-    "name": "Japanese Latcha Green Tea",
-    "image": "/images/japanese-latcha.png",
+    "name": "Japanese Matcha Green Tea",
+    "image": "/images/japanese-matcha.png",
     "variants": [
       {
         "size": "M",
