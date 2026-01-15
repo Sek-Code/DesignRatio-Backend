@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getMockUser, createMockUser, deleteMockUser } from "../modules/users/users.controller.js";
+import { getMockUser, createMockUser, deleteMockUser } from "../../modules/users/users.controller.js";
 
 
 export const router = Router()

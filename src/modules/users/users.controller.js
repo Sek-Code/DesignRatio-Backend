@@ -72,3 +72,13 @@ export const createMockUser = (req, res) => {
 // id: String(users.length + 1), คือการ สร้างค่า id ให้ user ใหม่ โดยดูจากจำนวน user ที่มีอยู่ใน users ตอนนั้น
 
 // users.push(newUser); push() = เพิ่มข้อมูลเข้าไปท้าย array
+
+export const getUser = (req, res) => {
+    const { id } = req.params;
+
+    try {
+        
+    } catch (error) {
+        
+    }
+}
