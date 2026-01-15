@@ -1,0 +1,42 @@
+{
+  "_id": "custom_001",
+  "type": "custom",
+  "name": "custom_tea01",
+
+  "customConfig": [
+    {
+      "size": "M",
+      "price": 180
+    },
+    {
+      "size": "L",
+      "price": 200
+    }
+  ],
+
+  "teaBases": [
+    {
+      "name": "Black Tea",
+      "price": 20,
+      "stock_count": 200
+    },
+    {
+      "name": "Green Tea",
+      "price": 20,
+      "stock_count": 200
+    },
+    {
+      "name": "Oolong Tea",
+      "price": 30,
+      "stock_count": 200
+    },
+    {
+      "name": "White Tea",
+      "price": 0,
+      "stock_count": 200
+    }
+  ],
+
+  "created_at": "2026-01-15T03:00:00.000Z",
+  "updated_at": "2026-01-15T03:00:00.000Z"
+}
