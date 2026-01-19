@@ -22,6 +22,7 @@
           { "component_id": "ing_001", "name": "Cinnamon", "category": "Spices" },
           { "component_id": "ing_002", "name": "Chamomile", "category": "Herbs" }
         ],
+        "ingredients_total_price": 200,
         "quantity": 1
       }
     ],
