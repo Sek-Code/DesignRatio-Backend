@@ -1,10 +1,10 @@
 import { app } from "./app.js";
-// import { connectDB } from "./config/mongodb.js";
+import { connectDB } from "./config/mongodb.js";
 
 const port = process.env.PORT || 3000;
 
 try {
-  // await connectDB();
+   await connectDB();
   app.listen(port, () => {
     console.log(`Server running on port: ${port} ✅`);
   });
