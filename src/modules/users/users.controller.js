@@ -1,5 +1,5 @@
 import { users } from "../../mock-db/userMockData.js";
-// import { TeaUser } from "./users.model.js";
+import { TeaUser } from "./users.model.js";
 
 export const getMockUser = (req, res) => {
   res.status(200).json(users);
@@ -73,12 +73,76 @@ export const createMockUser = (req, res) => {
 
 // users.push(newUser); push() = เพิ่มข้อมูลเข้าไปท้าย array
 
-export const getUser = (req, res) => {
-    const { id } = req.params;
+export const getUsers = async (req, res, next) => {
+  try {
+    const users = await TeaUser.find().select("-password");
+    return res.status(200).json({
+      success: true,
+      data: users,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
 
-    try {
-        
-    } catch (error) {
-        
+export const createUser = async (req, res, next) => {
+  const { userName, userLast, email, password, address, role } = req.body;
+
+  if (!userName || !userLast || !email || !password || !address) {
+    const error = new Error(
+      "name,surmane, email, password and address are required",
+    );
+    error.name = "ValidationError";
+    error.status = 400;
+    return next(error);
+  }
+
+  try {
+    const doc = await TeaUser.create({
+      userName,
+      userLast,
+      role,
+      email,
+      password,
+      address,
+    });
+
+    const safe = doc.toObject();
+    delete safe.password;
+
+    return res.status(201).json({
+      success: true,
+      data: safe,
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      error.status = 409;
+      error.name = "DuplicateKeyError";
+      error.message = "Email already in use";
     }
+    error.status = 500;
+    error.name = error.name || "DatabaseError";
+    error.message = error.message || "Failed to create a user";
+    return next(error);
+  }
+};
+
+export const getUser = async (req,res,next) => {
+  const { id } = req.params;
+
+  try {
+    const doc = await TeaUser.findById(id).select("-password");
+     if (!doc) {
+      const error = new Error("User not found");
+      return next(error);}
+      return res.status(200).json({
+      success: true,
+      data: doc,
+    });
+  } catch (error) {
+    rror.status = 500;
+    error.name = error.name || "DatabaseError";
+    error.message = error.message || "Failed to get a user";
+    return next(error);
+  }
 }

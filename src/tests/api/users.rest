@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/users
 
 ### POST request to create a new user 
-POST http://localhost:3000/api/users
+POST http://localhost:3000/api/v2/users
 Content-Type: application/json
 
 {
@@ -11,7 +11,8 @@ Content-Type: application/json
         "userLast": "Doe",
         "email": "john.doe@example.com",
         "phoneNumber": "0812345678",
-        "address": "123 Sukhumvit Road, Khlong Tan, Bangkok, Thailand"
+        "address": "123 Sukhumvit Road, Khlong Tan, Bangkok, Thailand",
+        "password":123456
 }
 
 ### DELETE request to delete a user
