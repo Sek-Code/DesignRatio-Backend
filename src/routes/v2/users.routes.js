@@ -5,10 +5,10 @@ export const router = Router()
 
 router.post("/",createUser)
 
-router.get("/:id", getUser)
-
 router.get("/", getUsers);
 
-router.delete("/", deleteUser);
+router.get("/:id", getUser)
+
+router.delete("/:id", deleteUser);
 
 router.patch("/:id", updateUser)

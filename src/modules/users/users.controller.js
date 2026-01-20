@@ -141,7 +141,7 @@ export const getUser = async (req,res,next) => {
       data: doc,
     });
   } catch (error) {
-    rror.status = 500;
+    error.status = 500;
     error.name = error.name || "DatabaseError";
     error.message = error.message || "Failed to get a user";
     return next(error);
