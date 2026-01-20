@@ -33,7 +33,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
-  res.send("Hello World! íº€ API is running...");
+  res.send("Hello World! ðŸš€ API is running...");
 });
 
 app.use("/api", apiRoutes);
