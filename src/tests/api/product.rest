@@ -6,5 +6,9 @@ GET http://localhost:3000/api/v2/products
 GET http://localhost:3000/api/v2/product
 
 
-#Create product to database
+### Create product in database
 POST http://localhost:3000/api/v2/products
+
+
+### Delete product in database
+DELETE http://localhost:3000/api/v2/products
