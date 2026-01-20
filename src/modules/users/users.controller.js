@@ -90,7 +90,7 @@ export const createUser = async (req, res, next) => {
 
   if (!userName || !userLast || !email || !password || !address || !phoneNumber) {
     const error = new Error(
-      "name,surmane, email, password and address are required",
+      "name,surmane, email, password, phone number and address are required",
     );
     error.name = "ValidationError";
     error.status = 400;
