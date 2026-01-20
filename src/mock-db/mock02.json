@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "prod001",
+    "name": "Japanese Matcha Green Tea",
+    "image": "/images/japanese-matcha.png",
+    "variants": [
+      {
+        "size": "M",
+        "price": 180,
+        "stock": 15
+      },
+      {
+        "size": "L",
+        "price": 340,
+        "stock": 8
+      }
+    ],
+    "isActive": true,
+    "type": "ready",
+    "createdAt": "2026-01-15T01:00:00.000Z",
+    "updatedAt": "2026-01-15T01:00:00.000Z"
+  },
+  {
+  "_id":"prodcustom001",
+  "name":"Custom Product",
+  "size":"L",
+  "price":250,
+  "teaBase":"Black Tea",
+  "ingredients":[
+    "Boba",
+    "Grass Jelly",
+    "Pudding"
+  ],
+
+
+  }
+]
+

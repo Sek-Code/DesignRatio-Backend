@@ -1,0 +1,123 @@
+[
+  {
+    "_id": "order_001",
+    "order_no": "DR-20260115-0001",
+    "user_id": "user_001",
+
+    "order_items": [
+      {
+        "product_id": "product_001",
+        "type": "ready",
+        "name": "Assam Tea",
+        "size": "L",
+        "quantity": 2
+      },
+      {
+        "product_id": "product_002",
+        "type": "custom",
+        "name": "custom_tea01",
+        "size": "L",
+        "bases": [{ "name": "Green Tea" }],
+        "ingredients": [
+          { "component_id": "ing_001", "name": "Cinnamon", "category": "Spices" },
+          { "component_id": "ing_002", "name": "Chamomile", "category": "Herbs" }
+        ],
+        "ingredients_total_price": 200,
+        "quantity": 1
+      }
+    ],
+
+    "delivery_option": {
+      "delivery_id": "del_002",
+      "name": "KEX Express"
+    },
+
+    "payment_option": {
+      "method": "QR Code"
+    },
+
+    "status_order": {
+      "payment_status": "paid",
+      "delivery_status": "preparing"
+    },
+
+    "grandTotal": 520,
+
+    "createdAt": "2026-01-15T06:00:00.000Z",
+    "updatedAt": "2026-01-15T06:00:00.000Z"
+  },
+
+  {
+    "_id": "order_002",
+    "order_no": "DR-20260115-0002",
+    "user_id": "user_002",
+
+    "order_items": [
+      {
+        "product_id": "product_003",
+        "type": "ready",
+        "name": "Oolong Tea",
+        "size": "M",
+        "quantity": 1
+      }
+    ],
+
+    "delivery_option": {
+      "delivery_id": "del_001",
+      "name": "Thailand Post"
+    },
+
+    "payment_option": {
+      "method": "Credit Card"
+    },
+
+    "status_order": {
+      "payment_status": "pending",
+      "delivery_status": "preparing"
+    },
+
+    "grandTotal": 220,
+
+    "createdAt": "2026-01-15T07:00:00.000Z",
+    "updatedAt": "2026-01-15T07:00:00.000Z"
+  },
+
+  {
+    "_id": "order_003",
+    "order_no": "DR-20260115-0003",
+    "user_id": "user_003",
+
+    "order_items": [
+      {
+        "product_id": "product_002",
+        "type": "custom",
+        "name": "custom_tea01",
+        "size": "M",
+        "bases": [{ "name": "Black Tea" }],
+        "ingredients": [
+          { "component_id": "ing_003", "name": "Apple", "category": "Fruits" }
+        ],
+        "quantity": 1
+      }
+    ],
+
+    "delivery_option": {
+      "delivery_id": "del_003",
+      "name": "Flash Express"
+    },
+
+    "payment_option": {
+      "method": "QR Code"
+    },
+
+    "status_order": {
+      "payment_status": "paid",
+      "delivery_status": "delivered"
+    },
+
+    "grandTotal": 270,
+
+    "createdAt": "2026-01-14T18:20:00.000Z",
+    "updatedAt": "2026-01-15T10:10:00.000Z"
+  }
+]
