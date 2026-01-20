@@ -4,3 +4,7 @@ GET http://localhost:3000/api/v2/products
 
 ### GET only Product
 GET http://localhost:3000/api/v2/product
+
+
+#Create product to database
+POST http://localhost:3000/api/v2/products
