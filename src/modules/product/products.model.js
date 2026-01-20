@@ -39,7 +39,10 @@ const ProductSchema = new mongoose.Schema(
         variants: {
             type: [VariantSchema],
             required: true,
-            validate: [() => v.length > 0, "At least one variant is required"],
+            validate: [
+              (variants) => variants.length > 0, 
+              "ต้องมีตัวแปรอย่างน้อย 1 รายการ"
+            ],
         },
 
         is_active: { type: Boolean, default: true },
