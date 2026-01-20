@@ -86,9 +86,9 @@ export const getUsers = async (req, res, next) => {
 };
 
 export const createUser = async (req, res, next) => {
-  const { userName, userLast, email, password, address, role } = req.body;
+  const { userName, userLast, email, password,phoneNumber, address, role } = req.body;
 
-  if (!userName || !userLast || !email || !password || !address) {
+  if (!userName || !userLast || !email || !password || !address || !phoneNumber) {
     const error = new Error(
       "name,surmane, email, password and address are required",
     );
@@ -104,6 +104,7 @@ export const createUser = async (req, res, next) => {
       role,
       email,
       password,
+      phoneNumber,
       address,
     });
 
@@ -146,3 +147,50 @@ export const getUser = async (req,res,next) => {
     return next(error);
   }
 }
+
+export const updateUser = async (req,res,next) => {
+  const { id } = req.params;
+
+  const body = req.body;
+
+  try {
+    const updated = await TeaUser.findByIdAndUpdate(id, body);
+
+    if (!updated) {
+      const error = new Error("User not found...");
+
+      return next(error);
+    }
+
+    const safe = updated.toObject();
+    delete safe.password;
+
+    return res.status(200).json({
+      success: true,
+      data: safe,
+    });
+  } catch (error) {
+    if (error.code === 11000) {
+      return next(error);
+    }
+    return next(error);}
+}
+
+export const deleteUser = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const deleted = await TeaUser.findByIdAndDelete(id);
+
+    if (!deleted) {
+      const error = new Error("User not found");
+      return next(error);
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: null,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
