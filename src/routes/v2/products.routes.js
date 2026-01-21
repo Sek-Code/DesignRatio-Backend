@@ -13,10 +13,10 @@ export const router = Router()
 
 router.get("/", getProducts);
 
-router.get("/:id", getProduct)
+router.get("/:nameref", getProduct)
 
 router.post("/", createProduct)
 
-router.delete("/:id",authUser, deleteProduct)
+router.delete("/:nameref",authUser, deleteProduct)
 
-router.patch("/:id",authUser, updateProduct)
+router.patch("/:nameref",authUser, updateProduct)

@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+const slugify = (text) => {
+    return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+}
+
 const VariantSchema = new mongoose.Schema(
     {
         variant_id: { type: String,},
@@ -17,7 +26,11 @@ const VariantSchema = new mongoose.Schema(
 
 const ProductSchema = new mongoose.Schema(
     {
-
+        nameref: {
+            type: String,
+            unique: true,
+            sparse: true // Allows multiple documents to have a null value for the field
+        },
         type: {
             type: String,
             enum: ["tea_base", "ready", "ingredient"],
@@ -48,6 +61,15 @@ const ProductSchema = new mongoose.Schema(
         timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
     }
 );
+
+ProductSchema.pre('save', function(next) {
+  if (this.isNew || this.isModified('name')) {
+    const nameSlug = slugify(this.name);
+    const idPart = this._id ? this._id.toString().slice(-6) : Math.random().toString(36).substring(2,8); // Fallback for _id not available
+    this.nameref = `${nameSlug}-${idPart}`;
+  }
+  next();
+});
 
 export const ProductModel =
     mongoose.models.Product || mongoose.model("Product", ProductSchema);
