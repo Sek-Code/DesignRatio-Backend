@@ -9,6 +9,6 @@ router.get("/:id", getUser)
 
 router.get("/", getUsers);
 
-router.delete("/", deleteUser);
+router.delete("/:id", deleteUser);
 
 router.patch("/:id", updateUser)
