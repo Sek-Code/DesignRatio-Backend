@@ -33,9 +33,9 @@ export const getProduct = async (req, res, next) =>{
 
 // ✅ route handler : craete a new product in the database 
 export const createProduct = async (req, res, next) => {
-    const {name, size, price} = req.body;
+    const {name, type, variants} = req.body;
 
-    if (!name  || !size || !price ) {
+    if (!name  || !type || !variants ) {
         const error = new Error("productname, size and price are required`");
         error.name = "ValidationError";
         error.status = 400;
@@ -43,7 +43,7 @@ export const createProduct = async (req, res, next) => {
     }
 
     try {
-        const doc = await Product.createProduct({name, size, price})
+        const doc = await ProductModel.create({name, type, variants})
         const safe = doc.toObject();
 
         return res.status(201).json({

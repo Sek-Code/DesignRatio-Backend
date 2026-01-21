@@ -3,12 +3,21 @@ GET http://localhost:3000/api/v2/products
 
 
 ### GET only Product
-GET http://localhost:3000/api/v2/product
+GET http://localhost:3000/api/v2/products/:id
 
 
 ### Create product in database
 POST http://localhost:3000/api/v2/products
+Content-Type: application/json
 
+{
+    "type":"ready",
+    "name":"tea mock ka",
+    "variants":[{"size":"M",
+                "price":"140"}]
+}
 
 ### Delete product in database
 DELETE http://localhost:3000/api/v2/products
+
+
