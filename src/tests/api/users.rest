@@ -7,9 +7,9 @@ Content-Type: application/json
 
 {
     "img": "/userProflie/img_002.png",
-        "userName": "John",
-        "userLast": "Doe",
-        "email": "johndoe@example.com",
+        "userName": "Boatza",
+        "userLast": "EiEi",
+        "email": "Boat01@example.com",
         "phoneNumber": "0812345678",
         "address": "123 Sukhumvit Road, Khlong Tan, Bangkok, Thailand",
         "password":123456
