@@ -1,136 +1,143 @@
+import mongoose from "mongoose";
 import { ProductModel } from "./products.model.js";
 
-// ✅ route call all product to view
+const { isValidObjectId } = mongoose;
+
+/**
+ * ดึงข้อมูลสินค้าทั้งหมด
+ */
 export const getProducts = async (req, res, next) => {
-    try {
-        const products = await ProductModel.find();
-        return res.status(200).json({
-            success: true,
-            data: products,
-        })
-    } catch (error) {
-            return next(error);
-        }
-}
-
-// ✅ route call one product to view (in edit product)
-export const getProduct = async (req, res, next) =>{
-    const { nameref } = req.params;
-
-    try {
-        const products = await ProductModel.findOne({ nameref })
-        if (!products) {
-            const error = new Error("Product not found...");
-            error.status = 404;
-            error.name = "NotFoundError";
-            return next(error);
-        }
-        return res.status(200).json({
-            success: true,
-            data: products,
-        })
-    } catch (error) {
-        error.status = 500;
-        error.name = error.name || "DatabaseError";
-        error.message = error.message || "Failed to get a product";
-        return next(error);
-    }
+  try {
+    const products = await ProductModel.find();
+    return res.status(200).json({
+      success: true,
+      count: products.length,
+      data: products,
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
 
-// ✅ route handler : craete a new product in the database 
+/**
+ * ดึงข้อมูลสินค้าเพียงหนึ่งรายการ
+ */
+export const getProduct = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    let product;
+    if (isValidObjectId(id)) {
+      product = await ProductModel.findById(id);
+    }
+    if (!product) {
+      product = await ProductModel.findOne({ referencename: id });
+    }
+    if (!product) {
+      const error = new Error("Product not found");
+      return next(error);
+    }
+    return res.status(200).json({
+      success: true,
+      data: product,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/**
+ * สร้างสินค้าใหม่
+ */
 export const createProduct = async (req, res, next) => {
-    const {name, type, variants} = req.body;
+  const { name, type, image, price, stock_count, size, gram, is_active, referencename } = req.body;
 
-    if (!name  || !type || !variants ) {
-        const error = new Error("productname, size and price are required`");
-        error.name = "ValidationError";
-        error.status = 400;
-        return next(error);
-    }
+  if (!name || !type || price === undefined || stock_count === undefined) {
+    const error = new Error("name, type, price, stock_count are required");
+    error.name = "ValidationError";
+    return next(error);
+  }
 
-    try {
-        const doc = await ProductModel.create({name, type, variants})
-        const safe = doc.toObject();
+  try {
+    const doc = await ProductModel.create({
+      name,
+      type,
+      image,
+      price,
+      stock_count,
+      size,
+      gram,
+      is_active,
+      referencename,
+    });
 
-        return res.status(201).json({
-            success:true,
-            data:safe,
-        });
-    } catch (error) {
-        if(error.code === 11000){
-            error.status = 409;
-            error.name = "DuplicateKeyError";
-            error.message = "product already in use";
-        }
-            error.status = 500;
-            error.name = error.product || "DatabaseError";
-            error.message = error.message || "Failed to create a product";
-            return next(error);
-    }
+    return res.status(201).json({
+      success: true,
+      data: doc,
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
 
-
-// ✅ route handler : update a product in the database
+/**
+ * อัปเดตข้อมูลสินค้า
+ */
 export const updateProduct = async (req, res, next) => {
-    const { nameref } = req.params; // Changed to take nameref from params
-    const body = req.body;
+  const { id } = req.params;
+  const body = req.body;
 
-    try {
-        // Find by nameref and update. Ensure nameref is not changed by the body if it's in there.
-        // Also, return the new updated document.
-        const updated = await ProductModel.findOneAndUpdate({ nameref }, body, { new: true, runValidators: true }); // Changed to findOneAndUpdate({ nameref }, body, { new: true }) and added runValidators: true
-
-        if(!updated) {
-            const error = new Error("Product not found...");
-            error.status = 404;
-            error.name = "NotFoundError";
-            return next (error);
-        }
-
-        const safe = updated.toObject();
-        // Assuming there is no 'password' field in product model, but keeping the line if it's a general copy-paste.
-        // If ProductModel can have password, it should be handled in a user context.
-        // For products, this line is likely not needed.
-        // delete safe.password;
-
-        return res.status(200).json({
-            success : true,
-            data : safe,
-        });
-    } catch (error) {
-        if (error.code === 11000){ // Duplicate key error, potentially if 'name' was changed resulting in a duplicate nameref
-            error.status = 409;
-            error.name = "DuplicateKeyError";
-            error.message = "Product name change resulted in a duplicate nameref";
-            return next(error);
-        }
-        error.status = 500;
-        error.name = error.name || "DatabaseError";
-        error.message = error.message || "Failed to update product";
-        return next(error);
+  try {
+    let updated;
+    if (isValidObjectId(id)) {
+      updated = await ProductModel.findByIdAndUpdate(id, body, { new: true });
     }
+    if (!updated) {
+      updated = await ProductModel.findOneAndUpdate(
+        { referencename: id },
+        body,
+        { new: true }
+      );
+    }
+
+    if (!updated) {
+      const error = new Error("Product not found");
+      return next(error);
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: updated,
+    });
+  } catch (error) {
+    return next(error);
+  }
 };
 
-// ✅ route handler : delete a product in the database
-export const deleteProduct = async (req, res , next) => {
-    const { nameref } = req.params; // Changed from 'id' to 'nameref'
-    try {
-        const deleted = await ProductModel.findOneAndDelete({ nameref }); // Changed from 'findByIdAndDelete(id)' to 'findOneAndDelete({ nameref })'
-        
-        if(!deleted){
-            const error = new Error("Product not found"); // Changed to "Product not found"
-            error.status = 404;
-            error.name = "NotFoundError";
-            return next(error);
-        }
-        return res.status(200).json({
-            success: true,
-            data : null,
-        });
-    } catch (error) {
-        error.status = 500;
-        error.name = error.name || "DatabaseError";
-        error.message = error.message || "Failed to delete product";
-        return next(error);
+/**
+ * ลบสินค้า
+ */
+export const deleteProduct = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    let deleted;
+    if (isValidObjectId(id)) {
+      deleted = await ProductModel.findByIdAndDelete(id);
     }
-}
+    if (!deleted) {
+      deleted = await ProductModel.findOneAndDelete({ referencename: id });
+    }
+
+    if (!deleted) {
+      const error = new Error("Product not found");
+      return next(error);
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: null,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
