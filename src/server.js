@@ -4,8 +4,8 @@ import { connectDB } from "./config/mongodb.js";
 const port = process.env.PORT || 3000;
 
 try {
-   await connectDB();
-  app.listen(port, () => {
+    await connectDB();
+    app.listen(port, () => {
     console.log(`Server running on port: ${port} ✅`);
   });
 } catch (error) {

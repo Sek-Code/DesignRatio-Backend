@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-// import cookieParser from "cookie-parser";
+import cookieParser from "cookie-parser";
 // import helmet from "helmet";
 
 import { router as apiRoutes } from "./routes/index.js";
@@ -30,7 +30,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Middleware to parse cookies (required for cookie-based auth)
-// app.use(cookieParser());
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -41,20 +41,20 @@ app.use("/api", apiRoutes);
 // Catch-all for 404 Not Found
 app.use((req, res, next) => {
   const error = new Error(`Not found: ${req.method} ${req.originalUrl}`);
-  error.name = error.name || "NotFoundError";
-  error.status = error.status || 404;
+  error.statusCode = 404;
+  error.errorType = "NotFoundError";
   next(error);
 });
 
 // Centralized Error Handling Middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
+  const statusCode = err.statusCode || err.status || 500;
+  const errorType = err.errorType || err.name || "InternalServerError";
+
+  res.status(statusCode).json({
     success: false,
-    message: err.message || "Internal Server Error",
-    path: req.originalUrl,
-    method: req.method,
-    timestamp: new Date().toISOString(),
-    stack: err.stack,
+    statusCode,
+    errorType,
+    message: err.message || "Something went wrong",
   });
 });

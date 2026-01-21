@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const VariantSchema = new mongoose.Schema(
     {
-        variant_id: { type: String, required: true },
+        variant_id: { type: String,},
 
         // ใช้กับ tea_base / ready
         size: { type: String },      // "S" | "M" | "L"
@@ -10,14 +10,13 @@ const VariantSchema = new mongoose.Schema(
 
         // ใช้ทุก type
         price: { type: Number, required: true, min: 0 },
-        stock_count: { type: Number, required: true, min: 0 },
+        stock_count: { type: Number, min: 0 },
     },
     { _id: false }
 );
 
 const ProductSchema = new mongoose.Schema(
     {
-        _id: { type: String, required: true },
 
         type: {
             type: String,
@@ -39,13 +38,11 @@ const ProductSchema = new mongoose.Schema(
         variants: {
             type: [VariantSchema],
             required: true,
-            validate: [() => v.length > 0, "At least one variant is required"],
+            // validate: [() => v.length > 0, "At least one variant is required"],
         },
 
         is_active: { type: Boolean, default: true },
 
-        created_at: { type: Date, default: Date.now, immutable: true },
-        updated_at: { type: Date, default: Date.now },
     },
     {
         timestamps: { createdAt: "created_at", updatedAt: "updated_at" },

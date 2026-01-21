@@ -78,4 +78,4 @@ npm run coverage
 ## Notes
 
 - `node_modules/` is ignored via `.gitignore`.
-- `.env` and `.env.*` are ignored, while `.env.example` is committed as a template.
+- `.env` and `.env.*` are ignored, while `.env.example` is committed as a template..
