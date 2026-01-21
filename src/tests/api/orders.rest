@@ -1,0 +1,83 @@
+### Variables
+@baseUrl = http://localhost:3000/api/v2
+@orderId = 696f8a9453701bba0abe0019
+@userId = 696f611594fa5985e0fb5b28
+
+### GET request to read all orders
+GET {{baseUrl}}/orders
+
+### GET request to read single order by ID
+GET {{baseUrl}}/orders/{{orderId}}
+
+### POST request to create a new order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "user_id": "{{userId}}",
+  "order_items": [
+    {
+      "product_id": "product_001",
+      "type": "ready",
+      "name": "Assam Tea",
+      "size": "L",
+      "quantity": 2
+    },
+    {
+      "product_id": "product_002",
+      "type": "custom",
+      "name": "custom_tea01",
+      "size": "M",
+      "bases": [
+        {
+          "name": "Green Tea"
+        }
+      ],
+      "ingredients": [
+        {
+          "component_id": "ing_001",
+          "name": "Cinnamon",
+          "category": "Spices"
+        }
+      ],
+      "ingredients_total_price": 200,
+      "quantity": 1
+    }
+  ],
+  "delivery_option": {
+    "delivery_id": "del_002",
+    "name": "KEX Express"
+  },
+  "payment_option": {
+    "method": "QR Code"
+  },
+  "grandTotal": 520
+}
+
+### PATCH request to update order status
+PATCH {{baseUrl}}/orders/{{orderId}}
+Content-Type: application/json
+
+{
+  "status_order": {
+    "payment_status": "paid",
+    "delivery_status": "shipped"
+  }
+}
+
+### PATCH request to update order delivery method
+PATCH {{baseUrl}}/orders/{{orderId}}
+Content-Type: application/json
+
+{
+  "delivery_option": {
+    "delivery_id": "del_001",
+    "name": "Thailand Post"
+  },
+  "payment_option": {
+    "method": "Credit Card"
+  }
+}
+
+### DELETE request to delete an order
+DELETE {{baseUrl}}/orders/{{orderId}}

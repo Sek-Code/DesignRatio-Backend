@@ -3,12 +3,12 @@ import { createUser, deleteUser, getUser, getUsers, updateUser } from "../../mod
 
 export const router = Router()
 
-router.post("/",createUser)
-
-router.get("/:id", getUser)
+router.post("/", createUser)
 
 router.get("/", getUsers);
 
-router.delete("/", deleteUser);
+router.get("/:id", getUser)
 
 router.patch("/:id", updateUser)
+
+router.delete("/:id", deleteUser);
