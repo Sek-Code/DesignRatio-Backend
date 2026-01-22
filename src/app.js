@@ -18,9 +18,9 @@ const corsOptions = {
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:5175",
-    "https://jsd-react-assessment-solution.vercel.app",
+    "https://design-ratio-web-app.vercel.app",
   ],
-  credentials: true, // ✅  allow cookies to be sent
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -29,32 +29,29 @@ app.use(limiter);
 
 app.use(express.json());
 
-// Middleware to parse cookies (required for cookie-based auth)
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
+// API routes
 app.use("/api", apiRoutes);
 
-// Catch-all for 404 Not Found
-app.use((req, res, next) => {
-  const error = new Error(`Not found: ${req.method} ${req.originalUrl}`);
-  error.statusCode = 404;
-  error.errorType = "NotFoundError";
-  next(error);
+// ========== ERROR HANDLING ==========
+
+// 404 Handler
+app.use((req, res) => {
+  res.status(404).json({
+    message: "This route does not exist",
+  });
 });
 
-// Centralized Error Handling Middleware
+// Error Handling Middleware
 app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || err.status || 500;
-  const errorType = err.errorType || err.name || "InternalServerError";
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
 
-  res.status(statusCode).json({
+  res.status(errorStatus).json({
     success: false,
-    statusCode,
-    errorType,
-    message: err.message || "Something went wrong",
+    status: errorStatus,
+    message: errorMessage,
+    stack: process.env.NODE_ENV === "development" ? err.stack : {},
   });
 });
