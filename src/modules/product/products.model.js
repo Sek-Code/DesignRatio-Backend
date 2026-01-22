@@ -1,56 +1,30 @@
 import mongoose from "mongoose";
 
-const VariantSchema = new mongoose.Schema(
-    {
-        variant_id: { type: String, required: true },
-
-        // ใช้กับ tea_base / ready
-        size: { type: String },      // "S" | "M" | "L"
-        gram: { type: Number, min: 0 },
-
-        // ใช้ทุก type
-        price: { type: Number, required: true, min: 0 },
-        stock_count: { type: Number, required: true, min: 0 },
+const productSchema = new mongoose.Schema(
+  {
+    type: {
+      type: String,
+      enum: ["ready", "ingredient", "teabase"],
+      required: true,
     },
-    { _id: false }
+    name: { type: String, required: true, trim: true },
+    image: { type: String },
+    price: { type: Number, required: true, min: 0 },
+    stock_count: { type: Number, required: true, min: 0 },
+    size: { type: String },
+    gram: { type: Number },
+    is_active: { type: Boolean, default: true },
+    referencename: {
+      type: String,
+      required: true,
+      unique: true,
+      sparse: true,
+      trim: true,
+    },
+  },
+  {
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+  }
 );
 
-const ProductSchema = new mongoose.Schema(
-    {
-        _id: { type: String, required: true },
-
-        type: {
-            type: String,
-            enum: ["tea_base", "ready", "ingredient"],
-            required: true,
-        },
-
-        name: { type: String, required: true, trim: true },
-
-        // มีเฉพาะ tea_base / ready
-        image: { type: String },
-
-        // มีเฉพาะ ingredient
-        category: {
-            type: String,
-            enum: ["Herbs", "Spices", "Fruits"],
-        },
-
-        variants: {
-            type: [VariantSchema],
-            required: true,
-            validate: [() => v.length > 0, "At least one variant is required"],
-        },
-
-        is_active: { type: Boolean, default: true },
-
-        created_at: { type: Date, default: Date.now, immutable: true },
-        updated_at: { type: Date, default: Date.now },
-    },
-    {
-        timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
-    }
-);
-
-export const ProductModel =
-    mongoose.models.Product || mongoose.model("Product", ProductSchema);
+export const ProductModel = mongoose.models.Product || mongoose.model("Product", productSchema);

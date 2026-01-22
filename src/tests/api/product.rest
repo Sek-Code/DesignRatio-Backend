@@ -1,6 +1,47 @@
-### GET ALl Product
+### GET all products
 GET http://localhost:3000/api/v2/products
 
+### GET product by ID
+GET http://localhost:3000/api/v2/products/ready_001
 
-### GET only Product
-GET http://localhost:3000/api/v2/product
+### GET product by referencename
+GET http://localhost:3000/api/v2/products/Boat_Ready_L
+
+### Create new product
+POST http://localhost:3000/api/v2/products
+Content-Type: application/json
+
+{
+  "type": "ready",
+  "name": "Boat",
+  "image": "boat.jpg",
+  "price": 150,
+  "stock_count": 10,
+  "size": "L",
+  "is_active": true,
+  "referencename": "Boat_Ready_L"
+}
+
+### Update product by ID
+PATCH http://localhost:3000/api/v2/products/6970b89d8410988ecef078c3
+Content-Type: application/json
+
+{
+  "price": 160,
+  "stock_count": 8
+}
+
+### Update product by referencename
+PATCH http://localhost:3000/api/v2/products/Boat_Ready_L
+Content-Type: application/json
+
+{
+  "price": 170,
+  "stock_count": 2
+}
+
+### Delete product by ID
+DELETE http://localhost:3000/api/v2/products/6970b89d8410988ecef078c3
+
+### Delete product by referencename
+DELETE http://localhost:3000/api/v2/products/Boat_Ready_L
