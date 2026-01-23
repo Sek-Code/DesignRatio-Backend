@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import helmet from "helmet";
 
 import { router as apiRoutes } from "./routes/index.js";
-import { limiter } from "./middlewares/rateLimiter.js";
+import { apiLimiter } from "./middlewares/rateLimiter.js";
 
 export const app = express();
 
@@ -25,7 +25,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(limiter);
+// General API limiter (login has its own limiter)
+app.use(apiLimiter);
 
 app.use(express.json());
 

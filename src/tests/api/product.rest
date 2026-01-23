@@ -1,14 +1,17 @@
+@baseUrl = http://localhost:3000
+@productsUrl = {{baseUrl}}/api/v2/products
+
 ### GET all products
-GET http://localhost:3000/api/v2/products
+GET {{productsUrl}}
 
 ### GET product by ID
-GET http://localhost:3000/api/v2/products/ready_001
+GET {{productsUrl}}/ready_001
 
 ### GET product by referencename
-GET http://localhost:3000/api/v2/products/Boat_Ready_L
+GET {{productsUrl}}/Boat_Ready_L
 
-### Create new product
-POST http://localhost:3000/api/v2/products
+### Create new product (example: ready)
+POST {{productsUrl}}
 Content-Type: application/json
 
 {
@@ -23,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Update product by ID
-PATCH http://localhost:3000/api/v2/products/6970b89d8410988ecef078c3
+PATCH {{productsUrl}}/6970b89d8410988ecef078c3
 Content-Type: application/json
 
 {
@@ -32,7 +35,7 @@ Content-Type: application/json
 }
 
 ### Update product by referencename
-PATCH http://localhost:3000/api/v2/products/Boat_Ready_L
+PATCH {{productsUrl}}/Boat_Ready_L
 Content-Type: application/json
 
 {
@@ -41,7 +44,427 @@ Content-Type: application/json
 }
 
 ### Delete product by ID
-DELETE http://localhost:3000/api/v2/products/6970b89d8410988ecef078c3
+DELETE {{productsUrl}}/6970b89d8410988ecef078c3
 
 ### Delete product by referencename
-DELETE http://localhost:3000/api/v2/products/Boat_Ready_L
+DELETE {{productsUrl}}/Boat_Ready_L
+
+
+# -----------------------------------------------------------------------------
+# Ingredient products
+# - type: "ingredient"
+# - price: "+" price to add on top of base product
+# - no image, no size
+# - stock_count: random
+# -----------------------------------------------------------------------------
+
+### Create ingredient: Herbs - Jasmine (+20)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Jasmine",
+  "price": 20,
+  "stock_count": 37,
+  "is_active": true,
+  "referencename": "Jasmine_Ingredient"
+}
+
+### Create ingredient: Herbs - Rose Petals (+20)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Rose Petals",
+  "price": 20,
+  "stock_count": 18,
+  "is_active": true,
+  "referencename": "Rose_Petals_Ingredient"
+}
+
+### Create ingredient: Herbs - Mint (+10)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Mint",
+  "price": 10,
+  "stock_count": 54,
+  "is_active": true,
+  "referencename": "Mint_Ingredient"
+}
+
+### Create ingredient: Herbs - Chamomile (+30)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Chamomile",
+  "price": 30,
+  "stock_count": 22,
+  "is_active": true,
+  "referencename": "Chamomile_Ingredient"
+}
+
+### Create ingredient: Herbs - Chrysanthemum (+10)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Chrysanthemum",
+  "price": 10,
+  "stock_count": 41,
+  "is_active": true,
+  "referencename": "Chrysanthemum_Ingredient"
+}
+
+### Create ingredient: Herbs - Lavender (+40)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Lavender",
+  "price": 40,
+  "stock_count": 16,
+  "is_active": true,
+  "referencename": "Lavender_Ingredient"
+}
+
+### Create ingredient: Herbs - Lemon Grass (+20)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Lemon Grass",
+  "price": 20,
+  "stock_count": 33,
+  "is_active": true,
+  "referencename": "Lemon_Grass_Ingredient"
+}
+
+
+### Create ingredient: Spices - Cinnamon (+30)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Cinnamon",
+  "price": 30,
+  "stock_count": 26,
+  "is_active": true,
+  "referencename": "Cinnamon_Ingredient"
+}
+
+### Create ingredient: Spices - Cloves (+20)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Cloves",
+  "price": 20,
+  "stock_count": 49,
+  "is_active": true,
+  "referencename": "Cloves_Ingredient"
+}
+
+### Create ingredient: Spices - Cardamon (+30)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Cardamon",
+  "price": 30,
+  "stock_count": 19,
+  "is_active": true,
+  "referencename": "Cardamon_Ingredient"
+}
+
+### Create ingredient: Spices - Ginger (+10)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Ginger",
+  "price": 10,
+  "stock_count": 61,
+  "is_active": true,
+  "referencename": "Ginger_Ingredient"
+}
+
+### Create ingredient: Spices - Star Anise (+20)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Star Anise",
+  "price": 20,
+  "stock_count": 28,
+  "is_active": true,
+  "referencename": "Star_Anise_Ingredient"
+}
+
+### Create ingredient: Spices - Nutmeg (+40)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Nutmeg",
+  "price": 40,
+  "stock_count": 14,
+  "is_active": true,
+  "referencename": "Nutmeg_Ingredient"
+}
+
+### Create ingredient: Spices - Black Pepper (+20)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Black Pepper",
+  "price": 20,
+  "stock_count": 45,
+  "is_active": true,
+  "referencename": "Black_Pepper_Ingredient"
+}
+
+
+### Create ingredient: Fruits - Bergamot (+30)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Bergamot",
+  "price": 30,
+  "stock_count": 21,
+  "is_active": true,
+  "referencename": "Bergamot_Ingredient"
+}
+
+### Create ingredient: Fruits - Apple (+10)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Apple",
+  "price": 10,
+  "stock_count": 57,
+  "is_active": true,
+  "referencename": "Apple_Ingredient"
+}
+
+### Create ingredient: Fruits - Peach (+30)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Peach",
+  "price": 30,
+  "stock_count": 24,
+  "is_active": true,
+  "referencename": "Peach_Ingredient"
+}
+
+### Create ingredient: Fruits - Lemon Peel (+20)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Lemon Peel",
+  "price": 20,
+  "stock_count": 38,
+  "is_active": true,
+  "referencename": "Lemon_Peel_Ingredient"
+}
+
+### Create ingredient: Fruits - Orange Peel (+10)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Orange Peel",
+  "price": 10,
+  "stock_count": 63,
+  "is_active": true,
+  "referencename": "Orange_Peel_Ingredient"
+}
+
+### Create ingredient: Fruits - Cranberry (+40)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Cranberry",
+  "price": 40,
+  "stock_count": 17,
+  "is_active": true,
+  "referencename": "Cranberry_Ingredient"
+}
+
+### Create ingredient: Fruits - Raspberry (+40)
+POST {{productsUrl}}
+Content-Type: application/json
+
+{
+  "type": "ingredient",
+  "name": "Raspberry",
+  "price": 40,
+  "stock_count": 29,
+  "is_active": true,
+  "referencename": "Raspberry_Ingredient"
+}
+
+
+# -----------------------------------------------------------------------------
+# Ensure ingredient prices (PATCH)
+# If you already had ingredient docs (e.g., price=200) and POST returned 409,
+# run these PATCH requests to force the intended add-on prices.
+# -----------------------------------------------------------------------------
+
+### GET only ingredient products (server-side filter)
+GET {{productsUrl}}?type=ingredient
+
+### PATCH ingredient price: Jasmine (+20)
+PATCH {{productsUrl}}/Jasmine_Ingredient
+Content-Type: application/json
+
+{ "price": 20, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Rose Petals (+20)
+PATCH {{productsUrl}}/Rose_Petals_Ingredient
+Content-Type: application/json
+
+{ "price": 20, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Mint (+10)
+PATCH {{productsUrl}}/Mint_Ingredient
+Content-Type: application/json
+
+{ "price": 10, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Chamomile (+30)
+PATCH {{productsUrl}}/Chamomile_Ingredient
+Content-Type: application/json
+
+{ "price": 30, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Chrysanthemum (+10)
+PATCH {{productsUrl}}/Chrysanthemum_Ingredient
+Content-Type: application/json
+
+{ "price": 10, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Lavender (+40)
+PATCH {{productsUrl}}/Lavender_Ingredient
+Content-Type: application/json
+
+{ "price": 40, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Lemon Grass (+20)
+PATCH {{productsUrl}}/Lemon_Grass_Ingredient
+Content-Type: application/json
+
+{ "price": 20, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Cinnamon (+30)
+PATCH {{productsUrl}}/Cinnamon_Ingredient
+Content-Type: application/json
+
+{ "price": 30, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Cloves (+20)
+PATCH {{productsUrl}}/Cloves_Ingredient
+Content-Type: application/json
+
+{ "price": 20, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Cardamon (+30)
+PATCH {{productsUrl}}/Cardamon_Ingredient
+Content-Type: application/json
+
+{ "price": 30, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Ginger (+10)
+PATCH {{productsUrl}}/Ginger_Ingredient
+Content-Type: application/json
+
+{ "price": 10, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Star Anise (+20)
+PATCH {{productsUrl}}/Star_Anise_Ingredient
+Content-Type: application/json
+
+{ "price": 20, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Nutmeg (+40)
+PATCH {{productsUrl}}/Nutmeg_Ingredient
+Content-Type: application/json
+
+{ "price": 40, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Black Pepper (+20)
+PATCH {{productsUrl}}/Black_Pepper_Ingredient
+Content-Type: application/json
+
+{ "price": 20, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Bergamot (+30)
+PATCH {{productsUrl}}/Bergamot_Ingredient
+Content-Type: application/json
+
+{ "price": 30, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Apple (+10)
+PATCH {{productsUrl}}/Apple_Ingredient
+Content-Type: application/json
+
+{ "price": 10, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Peach (+30)
+PATCH {{productsUrl}}/Peach_Ingredient
+Content-Type: application/json
+
+{ "price": 30, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Lemon Peel (+20)
+PATCH {{productsUrl}}/Lemon_Peel_Ingredient
+Content-Type: application/json
+
+{ "price": 20, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Orange Peel (+10)
+PATCH {{productsUrl}}/Orange_Peel_Ingredient
+Content-Type: application/json
+
+{ "price": 10, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Cranberry (+40)
+PATCH {{productsUrl}}/Cranberry_Ingredient
+Content-Type: application/json
+
+{ "price": 40, "type": "ingredient", "is_active": true }
+
+### PATCH ingredient price: Raspberry (+40)
+PATCH {{productsUrl}}/Raspberry_Ingredient
+Content-Type: application/json
+
+{ "price": 40, "type": "ingredient", "is_active": true }

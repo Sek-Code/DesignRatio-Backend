@@ -50,28 +50,6 @@ export const createMockUser = (req, res) => {
 
   res.status(200).json(newUser);
 };
-// client ส่ง request มา
-// POST /users
-// Content-Type: application/json
-
-// {
-//   "name": "Boat",
-//   "email": "boat@example.com"
-// }
-// Express เอามาเก็บ
-// req.body = {
-//   name: "Boat",
-//   email: "boat@example.com"
-// };
-// แบบปกติ
-// const name = req.body.name;
-// const email = req.body.email;
-// แบบ destructuring
-// const { name, email } = req.body;
-
-// id: String(users.length + 1), คือการ สร้างค่า id ให้ user ใหม่ โดยดูจากจำนวน user ที่มีอยู่ใน users ตอนนั้น
-
-// users.push(newUser); push() = เพิ่มข้อมูลเข้าไปท้าย array
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -86,7 +64,16 @@ export const getUsers = async (req, res, next) => {
 };
 
 export const createUser = async (req, res, next) => {
-  const { userName, userLast, email, password,phoneNumber, address, role } = req.body;
+  const {
+    userName,
+    userLast,
+    email,
+    password,
+    phoneNumber,
+    address,
+    role,
+    avatarUrl,
+  } = req.body;
 
   if (!userName || !userLast || !email || !password || !address || !phoneNumber) {
     const error = new Error(
@@ -101,6 +88,7 @@ export const createUser = async (req, res, next) => {
     const doc = await TeaUser.create({
       userName,
       userLast,
+      avatarUrl,
       role,
       email,
       password,
@@ -116,49 +104,71 @@ export const createUser = async (req, res, next) => {
       data: safe,
     });
   } catch (error) {
+    // Duplicate email
     if (error.code === 11000) {
       error.status = 409;
       error.name = "DuplicateKeyError";
       error.message = "Email already in use";
+      return next(error);
     }
-    error.status = 500;
+
+    // Mongoose validation
+    if (error.name === "ValidationError") {
+      error.status = 400;
+      error.message = error.message || "Invalid user data";
+      return next(error);
+    }
+
+    error.status = error.status || 500;
     error.name = error.name || "DatabaseError";
     error.message = error.message || "Failed to create a user";
     return next(error);
   }
 };
 
-export const getUser = async (req,res,next) => {
+export const getUser = async (req, res, next) => {
   const { id } = req.params;
 
   try {
     const doc = await TeaUser.findById(id).select("-password");
-     if (!doc) {
+    if (!doc) {
       const error = new Error("User not found");
-      return next(error);}
-      return res.status(200).json({
+      error.status = 404;
+      return next(error);
+    }
+
+    return res.status(200).json({
       success: true,
       data: doc,
     });
   } catch (error) {
-    rror.status = 500;
+    if (error.name === "CastError") {
+      error.status = 400;
+      error.message = "Invalid user id";
+      return next(error);
+    }
+
+    error.status = 500;
     error.name = error.name || "DatabaseError";
     error.message = error.message || "Failed to get a user";
     return next(error);
   }
-}
+};
 
-export const updateUser = async (req,res,next) => {
+export const updateUser = async (req, res, next) => {
   const { id } = req.params;
 
   const body = req.body;
 
   try {
-    const updated = await TeaUser.findByIdAndUpdate(id, body);
+    const updated = await TeaUser.findByIdAndUpdate(id, body, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!updated) {
       const error = new Error("User not found...");
-
+      error.status = 404;
       return next(error);
     }
 
@@ -171,18 +181,31 @@ export const updateUser = async (req,res,next) => {
     });
   } catch (error) {
     if (error.code === 11000) {
+      error.status = 409;
+      error.name = "DuplicateKeyError";
+      error.message = "Email already in use";
       return next(error);
     }
-    return next(error);}
-}
+
+    if (error.name === "CastError") {
+      error.status = 400;
+      error.message = "Invalid user id";
+      return next(error);
+    }
+
+    return next(error);
+  }
+};
 
 export const deleteUser = async (req, res, next) => {
   const { id } = req.params;
+
   try {
     const deleted = await TeaUser.findByIdAndDelete(id);
 
     if (!deleted) {
       const error = new Error("User not found");
+      error.status = 404;
       return next(error);
     }
 
@@ -191,6 +214,12 @@ export const deleteUser = async (req, res, next) => {
       data: null,
     });
   } catch (error) {
+    if (error.name === "CastError") {
+      error.status = 400;
+      error.message = "Invalid user id";
+      return next(error);
+    }
+
     return next(error);
   }
 };
